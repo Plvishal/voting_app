@@ -17,6 +17,17 @@ export async function POST(req, res) {
       }
     );
   }
-//   check password
+  //   check password is valid or not
+  const validPaasword = await bcryptjs.compare(password, user.password);
+  if (!validPaasword) {
+    return NextResponse.json(
+      {
+        msg: 'Incorrect password',
+      },
+      { status: 400 }
+    );
+  }
+  
+
   return NextResponse.json('ok');
 }
