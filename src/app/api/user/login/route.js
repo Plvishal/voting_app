@@ -2,6 +2,7 @@ import { ConnectDB } from '@/config/db';
 import User from '@/model/userSchema';
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Jost } from 'next/font/google';
 import { NextResponse } from 'next/server';
 ConnectDB();
 export async function POST(req, res) {
@@ -41,6 +42,9 @@ export async function POST(req, res) {
       success: true,
     });
     response.cookies.set('token', token, {
+      httpOnly: true,
+    });
+    response.cookies.set('id', user._id, {
       httpOnly: true,
     });
     return response;
