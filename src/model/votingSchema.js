@@ -3,9 +3,10 @@ const votingSchema = new mongoose.Schema({
   candidate: String,
   voters: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
     },
   ],
 });
-const Votes = mongoose.models.votes || mongoose.model('votes', votingSchema);
-export default Votes;
+const Vote = mongoose.models.votes || mongoose.model('votes', votingSchema);
+export default Vote;

@@ -7,7 +7,7 @@ function VotingPages() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const votingData = {
-      voting: formData,
+      candidate: formData,
     };
     axios.post('/api/voting', votingData).then((res) => {
       console.log(res.data);

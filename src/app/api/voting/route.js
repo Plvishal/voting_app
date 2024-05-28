@@ -1,16 +1,16 @@
 import { ConnectDB } from '@/config/db';
 import User from '@/model/userSchema';
-import Votes from '@/model/votingSchema';
+import Vote from '@/model/votingSchema';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 ConnectDB();
 export async function POST(req, res) {
   const { candidate } = await req.json();
   const cokie = cookies().get('id');
-  console.log(cokie.value);
-  const newVoter = new Votes({
+  const user = await Vote.findOne({ _id: cokie.value }).populate('voters');
+  console.log(user);
+  const newVoter = new Vote({
     candidate,
-    voters: cokie.value,
   });
   const savedVoter = await newVoter.save();
   return NextResponse.json({ savedVoter });
